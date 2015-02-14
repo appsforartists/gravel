@@ -1,0 +1,16 @@
+{
+  "name": "cascadia-generic",
+  "version": "0.0.0",
+  "description": "The generic components of Cascadia.",
+  "main": "src/index.js",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.ebay.com:cascadia/cascadia-generic.git"
+  },
+  "contributors": [
+    "Brenton Simpson <bresimpson@ebay.com> (http://appsforartists.com)"
+  ],
+  "license": "Proprietary"
+}
