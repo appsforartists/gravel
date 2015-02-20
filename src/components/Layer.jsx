@@ -41,6 +41,7 @@ var Layer = React.createClass(
                                                                         "left":       0,
                                                                         "width":      "100%",
                                                                         "height":     "100%",
+                                                                        "height":     -1000,
                                                                       },
 
                                                                       stylesForElevation[this.props.elevation].secondShadow
@@ -51,6 +52,26 @@ var Layer = React.createClass(
                                   },
 
     "render":                     function () {
+                                    /*  This was the first file ported over from SCSS and probably needs to be
+                                     *  revisited.
+                                     *  
+                                     *  - The divs should be eliminated, with secondShadow added to the View's
+                                     *    children.
+                                     *
+                                     *  - The whole recomputeStyles flow is could be a premature optimization 
+                                     *    that doesn't match the rest of the library.
+                                     *
+                                     *  The original port of CollapsableShingles relied on Layer, but it was
+                                     *  scrapped because it was introducing bugs where position:absolute
+                                     *  was sticking to one of the divs even after it had been removed as a 
+                                     *  prop.
+                                     *
+                                     *  I briefly experimented with concating secondShadow into 
+                                     *  propsPassthrough.children, but it wasn't working as expected.
+                                     *
+                                     *  TODO: try again.
+                                     */
+
                                     return  <div 
                                               style = { this.state.styles.container }
                                             >                                    
