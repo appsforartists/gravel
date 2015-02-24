@@ -1,5 +1,7 @@
 var React       = require("react/addons");
 
+var autoprefixStyleProp = require("autoprefix-style-prop");
+
 var AppBar      = require("./AppBar");
 var Layer       = require("./Layer");
 var Scrim       = require("./Scrim");
@@ -64,12 +66,9 @@ var Drawer = React.createClass(
                                                               {
                                                                 "backgroundColor":    this.props.backgroundColor,
 
-                                                                ...(
-                                                                  this.props.open
-                                                                    ? styles.drawer[this.props.side].open
-                                                                    : styles.drawer[this.props.side].closed
-                                                                ),
+                                                                ...(this.props.open && styles.drawer[this.props.side].open),
 
+                                                                ...styles.drawer[this.props.side].common,
                                                                 ...styles.drawer.common,
                                                                 ...easings.fallAndRecoil,
                                                               }
@@ -124,31 +123,39 @@ var styles = {
                            */
 
                 "left":   {
-                            "closed": {
-                                        "right":                        "100vw",
-                                      },
+                            "common": autoprefixStyleProp(
+                                        {
+                                          "right":                        "100vw",
+                                        }
+                                      ),
 
-                            "open":   {
-                                        "transform":                    `translateX(
-                                                                          calc(
-                                                                            100vw - ${ AppBar.height }px
-                                                                          )
-                                                                        )`,
-                                      },
+                            "open":   autoprefixStyleProp(
+                                        {
+                                          "transform":                    `translateX(
+                                                                            calc(
+                                                                              100vw - ${ AppBar.height }px
+                                                                            )
+                                                                          )`,
+                                        }
+                                      ),
                           },
                             
                 "right":  {
-                            "closed": {
-                                        "left":                         "100vw",
-                                      },
+                            "common": autoprefixStyleProp(
+                                        {
+                                          "left":                         "100vw",
+                                        }
+                                      ),
 
-                            "open":   {
-                                        "transform":                    `translateX(
-                                                                          calc(
-                                                                            ${ AppBar.height }px - 100vw
-                                                                          )
-                                                                        )`,
-                                      },
+                            "open":   autoprefixStyleProp(
+                                        {
+                                          "transform":                    `translateX(
+                                                                            calc(
+                                                                              ${ AppBar.height }px - 100vw
+                                                                            )
+                                                                          )`,
+                                        }
+                                      ),
                           },
               },
 
