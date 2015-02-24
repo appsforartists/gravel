@@ -1,10 +1,10 @@
-var Lazy = require("lazy.js");
+var Immutable = require("immutable");
 
-module.exports = Lazy(
+module.exports = Immutable.List(
   [
     "LeftDrawerIsOpen",
     "RightDrawerIsOpen",
   ]
-).map(
-  key => [key, require(`./${ key }`)]
+).toMap().mapEntries(
+  ([i, name], _) => [name, require(`./${ name }`)]
 ).toObject();

@@ -1,7 +1,6 @@
 var Immutable             = require("immutable");
 var ImmutableRenderMixin  = require("react-immutable-render-mixin");
 var React                 = require("react/addons");
-var classSet              = React.addons.classSet;
 
 var Layer   = require("./Layer");
 var Shingle = require("./Shingle");
