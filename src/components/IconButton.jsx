@@ -1,6 +1,8 @@
 var React       = require("react/addons");
 var ReactRouter = require("react-router");
 
+var autoprefixStyleProp = require("autoprefix-style-prop");
+
 var Silhouette  = require("./Silhouette");
 var CaptionText = require("./texts/CaptionText");
 
@@ -86,39 +88,45 @@ IconButton.padding     = 12;
 IconButton.totalSize   = IconButton.visibleSize + 2 * IconButton.padding;
 
 var styles = {
-  "link":     {
-                "display":                      "inline-flex",
-                "flexDirection":                "column",
-                "justifyContent":               "center",
-                "alignItems":                   "center",
+  "link":     autoprefixStyleProp(
+                {
+                  "display":                      "inline-flex",
+                  "flexDirection":                "column",
+                  "justifyContent":               "center",
+                  "alignItems":                   "center",
 
-                "width":                        IconButton.totalSize,
-                "height":                       IconButton.totalSize,
-                "padding":                      IconButton.padding,
+                  "width":                        IconButton.totalSize,
+                  "height":                       IconButton.totalSize,
+                  "padding":                      IconButton.padding,
 
-                "color":                        "inherit",
-                "textDecoration":               "none",
+                  "color":                        "inherit",
+                  "textDecoration":               "none",
 
-                "cursor":                       "pointer",
-              },
+                  "cursor":                       "pointer",
+                }
+              ),
 
-  "image":    {
-                "width":                        IconButton.visibleSize,
-                "height":                       IconButton.visibleSize,
-              },
+  "image":    autoprefixStyleProp(
+                {
+                  "width":                        IconButton.visibleSize,
+                  "height":                       IconButton.visibleSize,
+                }
+              ),
 
-  "label":    {
-                "opacity":                      1,
+  "label":    autoprefixStyleProp(
+                {
+                  "opacity":                      1,
 
-                // Allow lines to break because it looks better here (even though Material Design says captions don't break)
-                "whiteSpace":                  "inherit",
-                "textAlign":                   "center",
+                  // Allow lines to break because it looks better here (even though Material Design says captions don't break)
+                  "whiteSpace":                  "inherit",
+                  "textAlign":                   "center",
 
-                // trick flexbox into treating this as one line, so they stay
-                // top-aligned but centered
-                "height":                       "1em",
-                "overflowY":                    "visible",
-              },
+                  // trick flexbox into treating this as one line, so they stay
+                  // top-aligned but centered
+                  "height":                       "1em",
+                  "overflowY":                    "visible",
+                }
+              ),
 };
 
 module.exports = IconButton;

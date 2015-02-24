@@ -1,5 +1,7 @@
 var React       = require("react/addons");
 
+var autoprefixStyleProp = require("autoprefix-style-prop");
+
 var easings = require("../styles/easings");
 
 var DisclosureTriangle = React.createClass(
@@ -50,18 +52,22 @@ var DisclosureTriangle = React.createClass(
 );
 
 var styles = {
-  "common":     {
-                  "width":                        "1em",
+  "common":     autoprefixStyleProp(
+                  {
+                    "width":                        "1em",
 
-                  "transitionProperty":           "transform -webkit-transform",
-                  "transitionDuration":           ".3s",
-                  
-                  "cursor":                       "pointer",
-                },
+                    "transitionProperty":           "transform -webkit-transform",
+                    "transitionDuration":           ".3s",
+                    
+                    "cursor":                       "pointer",
+                  }
+                ),
 
-  "collapsed":  {
-                  "transform":                    "rotate(-90deg)",
-                },
+  "collapsed":  autoprefixStyleProp(
+                  {
+                    "transform":                    "rotate(-90deg)",
+                  }
+                ),
 };
 
 module.exports = DisclosureTriangle;

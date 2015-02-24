@@ -3,6 +3,8 @@ var ReactRouter = require("react-router");
 
 var Link            = ReactRouter.Link;
 
+var autoprefixStyleProp = require("autoprefix-style-prop");
+
 var packageGlobals = require("cascadia-generic");
 
 var DisclosureTriangle  = require("./DisclosureTriangle");
@@ -118,49 +120,61 @@ var Shingle = React.createClass(
 );
 
 var styles = {
-  "container":                      {
-                                      "flexDirection":                "row",
-                                      "flexWrap":                     "nowrap",
-                                      "alignItems":                   "center",
+  "container":                      autoprefixStyleProp(
+                                      {
+                                        "flexDirection":                "row",
+                                        "flexWrap":                     "nowrap",
+                                        "alignItems":                   "center",
 
-                                      "paddingRight":                 16,
+                                        "paddingRight":                 16,
 
-                                      // Use a reasonable lineHeight to make it clear which lines belong to which shingle
-                                      "lineHeight":                   "1.5em",
+                                        // Use a reasonable lineHeight to make it clear which lines belong to which shingle
+                                        "lineHeight":                   "1.5em",
 
-                                      "textDecoration":               "none",
-                                      "color":                        "inherit",
-                                    },
+                                        "textDecoration":               "none",
+                                        "color":                        "inherit",
+                                      }
+                                    ),
 
-  "link":                           {
-                                      "color":                        "inherit",
-                                      "textDecoration":               "none",
-                                    },
+  "link":                           autoprefixStyleProp(
+                                      {
+                                        "color":                        "inherit",
+                                        "textDecoration":               "none",
+                                      }
+                                    ),
                                     
-  "label":                          {
-                                      "paddingTop":                   13,
-                                      "paddingBottom":                13,
-                                    },
+  "label":                          autoprefixStyleProp(
+                                      {
+                                        "paddingTop":                   13,
+                                        "paddingBottom":                13,
+                                      }
+                                    ),
                                     
-  "indent":                         {
-                                      // Each disclosure triangle is a 7px icon in a button-sized square;
-                                      // indent so the triangles and labels are flush.
-                                      "width":                        (packageGlobals.TOUCH_TARGET_MINIMUM_SIZE + 7) / 2,
-                                      "height":                       packageGlobals.TOUCH_TARGET_MINIMUM_SIZE,
-                                      "flex":                         "none",
-                                    },
+  "indent":                         autoprefixStyleProp(
+                                      {
+                                        // Each disclosure triangle is a 7px icon in a button-sized square;
+                                        // indent so the triangles and labels are flush.
+                                        "width":                        (packageGlobals.TOUCH_TARGET_MINIMUM_SIZE + 7) / 2,
+                                        "height":                       packageGlobals.TOUCH_TARGET_MINIMUM_SIZE,
+                                        "flex":                         "none",
+                                      }
+                                    ),
 
-  "disclosureTriangleContainer":    {
-                                      "justifyContent":               "center",
-                                      "alignItems":                   "center",
-                                      "cursor":                       "pointer",
-                                    },
+  "disclosureTriangleContainer":    autoprefixStyleProp(
+                                      {
+                                        "justifyContent":               "center",
+                                        "alignItems":                   "center",
+                                        "cursor":                       "pointer",
+                                      }
+                                    ),
 
-  "disclosureTrianglePlaceholder":  {
-                                      "width":                        packageGlobals.TOUCH_TARGET_MINIMUM_SIZE,
-                                      "height":                       packageGlobals.TOUCH_TARGET_MINIMUM_SIZE,
-                                      "flex":                         "none",
-                                    },
+  "disclosureTrianglePlaceholder":  autoprefixStyleProp(
+                                      {
+                                        "width":                        packageGlobals.TOUCH_TARGET_MINIMUM_SIZE,
+                                        "height":                       packageGlobals.TOUCH_TARGET_MINIMUM_SIZE,
+                                        "flex":                         "none",
+                                      }
+                                    ),
 };
 
 module.exports = Shingle;

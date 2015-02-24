@@ -3,6 +3,8 @@ var ReactRouter = require("react-router");
 
 var Link = ReactRouter.Link;
 
+var autoprefixStyleProp = require("autoprefix-style-prop");
+
 var Layer      = require("./Layer");
 var IconButton = require("./IconButton");
 var Silhouette = require("./Silhouette");
@@ -83,23 +85,27 @@ var AppBar = React.createClass(
 AppBar.height  = 56;
 
 var styles = {
-  "container":      {
-                      "flexDirection":                "row",
-                      "justifyContent":               "space-between",
-                      "alignItems":                   "center",
+  "container":      autoprefixStyleProp(
+                      {
+                        "flexDirection":                "row",
+                        "justifyContent":               "space-between",
+                        "alignItems":                   "center",
 
-                      "position":                     "fixed",
-                      "top":                          0,
-                      "left":                         0,
+                        "position":                     "fixed",
+                        "top":                          0,
+                        "left":                         0,
 
-                      "width":                        "100vw",
-                      "height":                       AppBar.height,
-                    },
+                        "width":                        "100vw",
+                        "height":                       AppBar.height,
+                      }
+                    ),
                                         
-  "logo":           {
-                      "maxHeight":                    IconButton.visibleSize,
-                      "maxWidth":                     `calc(100vw - ${ 2 * (IconButton.totalSize + IconButton.padding) }px)`,
-                    },
+  "logo":           autoprefixStyleProp(
+                      {
+                        "maxHeight":                    IconButton.visibleSize,
+                        "maxWidth":                     `calc(100vw - ${ 2 * (IconButton.totalSize + IconButton.padding) }px)`,
+                      }
+                    ),
 };
 
 module.exports = AppBar;
