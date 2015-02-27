@@ -8,6 +8,53 @@ var Scrim = React.createClass(
                                     "style":      React.PropTypes.object
                                   },
 
+    "getInitialState":            function () {
+                                    return {
+                                      "dissolving":   false
+                                    }
+                                  },
+
+    "componentWillReceiveProps":  function (nextProps) {
+                                    // Sets a "dissolving" property on this.state while visible is 
+                                    // transitioning to false.
+                                    //
+                                    // If CSS had a transitionstart event, this could be abstracted out
+                                    // into a TransitionMixin
+
+                                    if (
+                                         (this.props.style.transitionDuration || this.props.style.transition) 
+                                      && this.props.visible && !nextProps.visible
+                                    ) {
+                                      var node = this.getDOMNode();
+
+                                      if (node) {
+                                        this.setState(
+                                          {
+                                            "dissolving": true
+                                          }
+                                        );
+
+                                        var finishDissolving = (event) => {
+                                          node.removeEventListener(
+                                            "transitionend",
+                                            finishDissolving
+                                          );
+
+                                          this.setState(
+                                            {
+                                              "dissolving": false
+                                            }
+                                          );
+                                        }
+
+                                        node.addEventListener(
+                                          "transitionend",
+                                          finishDissolving
+                                        );
+                                      }
+                                    }
+                                  },
+
     "render":                     function () {
                                     // Pass any props we don't know how to handle onto the div
                                     var {
@@ -17,12 +64,14 @@ var Scrim = React.createClass(
                                       ...propsPassthrough
                                     } = this.props;
 
-                                    // TODO: if props.style has a transition or transitionDuration key,
-                                    // don't collapse the scrim height until after the tween finishes
-
                                     return  <div 
                                               style = { 
                                                         {
+                                                          "height":   this.props.visible || this.state.dissolving
+                                                                        ? "100vh"
+                                                                        : 0,
+
+
                                                           ...this.props.style,
 
                                                           ...(
@@ -54,13 +103,10 @@ var styles = {
                 },
 
   "invisible":  {
-                  "height":                       0,
                   "opacity":                      0,
                 },
 
   "visible":    {
-                  "height":                       "100vh",
-
                   "opacity":                      0.16,
                 },
 };
