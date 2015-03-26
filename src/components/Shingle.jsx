@@ -5,7 +5,7 @@ var Link            = ReactRouter.Link;
 
 var autoprefixStyleProp = require("autoprefix-style-prop");
 
-var packageGlobals = require("cascadia-generic");
+var packageGlobals = require("gravel");
 
 var DisclosureTriangle  = require("./DisclosureTriangle");
 var Layer               = require("./Layer");
