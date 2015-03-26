@@ -6,7 +6,7 @@ module.exports = {
   "STATIC_PATH":                __dirname + "/static/",
 };
 
-module.exports["components"] = require("./components");
-module.exports["reflux"]     = require("./reflux");
-module.exports["styles"]     = require("./styles");
+module.exports["components"]      = require("./components");
+module.exports["funxDefinitions"] = require("./funxDefinitions");
+module.exports["styles"]          = require("./styles");
 

@@ -34,8 +34,8 @@ var Main = React.createClass(
     "mixins":                     [
                                     Ambidex.mixinCreators.connectStoresToLocalState(
                                       [
-                                        "LeftDrawerIsOpen",
-                                        "RightDrawerIsOpen"
+                                        "leftDrawerIsOpen",
+                                        "rightDrawerIsOpen"
                                       ]
                                     ),
                                   ],
@@ -46,7 +46,7 @@ var Main = React.createClass(
                                     return  <div>
                                               <AppBar
                                                 shouldShowNavIcon   = { Boolean(this.props.leftSideBar) }
-                                                showNavAction       = { this.getRefluxAction("showLeftDrawer") }
+                                                showNavAction       = { this.getFunxAction("showLeftDrawer") }
                                                 imagesURL           = { this.props.staticURL + "images/" }
                                                 actionButtons       = { this.props.appBarActionButtons }
                                                 logoSrc             = { this.props.logoSrc }
@@ -60,7 +60,7 @@ var Main = React.createClass(
                                                   ? <Drawer
                                                       side       = "left"
                                                       open       = { this.state.leftDrawerIsOpen }
-                                                      hideAction = { this.getRefluxAction("hideLeftDrawer") }
+                                                      hideAction = { this.getFunxAction("hideLeftDrawer") }
                                                       content    = { this.props.leftSideBar }
                                                     />
                                                   : null 
@@ -75,7 +75,7 @@ var Main = React.createClass(
                                                   ? <Drawer
                                                       side       = "right"
                                                       open       = { this.state.rightDrawerIsOpen }
-                                                      hideAction = { this.getRefluxAction("hideRightDrawer") }
+                                                      hideAction = { this.getFunxAction("hideRightDrawer") }
                                                       content    = { this.props.rightSideBar }
                                                     />
                                                   : null
