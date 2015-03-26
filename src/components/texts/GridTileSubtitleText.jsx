@@ -2,12 +2,14 @@ var createText = require("./_createText");
 
 var GridTileSubtitleText = createText(
   {
-    "styles":   {
-                  "fontSize":                     12,
-                  "fontWeight":                   400,
-                },
+    "displayName":  "GridTileSubtitleText",
+    
+    "styles":       {
+                      "fontSize":                     12,
+                      "fontWeight":                   400,
+                    },
 
-    "truncate": true
+    "truncate":     true
   }
 );
 

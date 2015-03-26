@@ -2,14 +2,16 @@ var createText = require("./_createText");
 
 var Display2Text = createText(
   {
-    "styles":   {
-                  "fontSize":                     45,
-                  "fontWeight":                   400,
-                  "opacity":                      .54,
-                  "lineSpacing":                  48,
-                },
+    "displayName":  "Display2Text",
 
-    "truncate": false
+    "styles":       {
+                      "fontSize":                     45,
+                      "fontWeight":                   400,
+                      "opacity":                      .54,
+                      "lineSpacing":                  48,
+                    },
+
+    "truncate":     false
   }
 );
 

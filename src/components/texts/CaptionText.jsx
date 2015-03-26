@@ -2,13 +2,15 @@ var createText = require("./_createText");
 
 var CaptionText = createText(
   {
-    "styles":   {
-                  "fontSize":                     12,
-                  "fontWeight":                   400,
-                  "opacity":                      .54,
-                },
+    "displayName":  "CaptionText",
 
-    "truncate": true
+    "styles":       {
+                      "fontSize":                     12,
+                      "fontWeight":                   400,
+                      "opacity":                      .54,
+                    },
+
+    "truncate":     true
   }
 );
 

@@ -1,17 +1,19 @@
-var packageGlobals = require("cascadia-generic");
+var packageGlobals = require("gravel");
 
 var createText = require("./_createText");
 
 var ListItemText = createText(
   {
-    "styles":   {
-                  "fontSize":                     14,
-                  "fontWeight":                   500,
-                  "opacity":                      .87,
-                  "lineHeight":                   packageGlobals.TOUCH_TARGET_MINIMUM_SIZE + "px",
-                },
+    "displayName":  "ListItemText",
 
-    "truncate": false
+    "styles":       {
+                      "fontSize":                     14,
+                      "fontWeight":                   500,
+                      "opacity":                      .87,
+                      "lineHeight":                   packageGlobals.TOUCH_TARGET_MINIMUM_SIZE + "px",
+                    },
+
+    "truncate":     false
   }
 );
 

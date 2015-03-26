@@ -4,6 +4,7 @@ var View = require("../View");
 
 var createText = function (
   {
+    displayName,
     styles, 
     truncate
   }
@@ -25,6 +26,8 @@ var createText = function (
 
   return React.createClass(
     {
+      "displayName":                displayName,
+
       "render":                     function () {
                                       return  <View
                                                 style = { styles }

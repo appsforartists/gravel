@@ -2,13 +2,15 @@ var createText = require("./_createText");
 
 var Display3Text = createText(
   {
-    "styles":   {
-                  "fontSize":                     56,
-                  "fontWeight":                   400,
-                  "opacity":                      .54,
-                },
+    "displayName":  "Display3Text",
 
-    "truncate": true
+    "styles":       {
+                      "fontSize":                     56,
+                      "fontWeight":                   400,
+                      "opacity":                      .54,
+                    },
+
+    "truncate":     true
   }
 );
 
