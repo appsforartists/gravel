@@ -8,7 +8,7 @@
     "react-immutable-render-mixin": "0.8"
   },
   "peerDependencies": {
-    "ambidex": "~0.2.0.beta2",
+    "ambidex": "~0.2.0.beta3",
     "funx": "~0.0.0",
     "react": "0.12",
     "immutable": "3",
