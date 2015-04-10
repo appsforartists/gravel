@@ -10,18 +10,22 @@ var Drawer = require("./Drawer");
 var Main = React.createClass(
   {
     "propTypes":                  {
-                                    "staticURL":              React.PropTypes.string.isRequired,
-                                    "logoSrc":                React.PropTypes.string.isRequired,
+                                    "staticURL":                    React.PropTypes.string.isRequired,
+                                    "logoSrc":                      React.PropTypes.string.isRequired,
                                     
-                                    "makeLogoSilhouette":     React.PropTypes.bool,
-                                    "leftSideBar":            React.PropTypes.element,
-                                    "rightSideBar":           React.PropTypes.element,
+                                    "makeLogoSilhouette":           React.PropTypes.bool,
+                                    "leftSideBar":                  React.PropTypes.element,
+                                    "rightSideBar":                 React.PropTypes.element,
 
-                                                              // I can't help wondering if this should be
-                                                              // a list of props to pass to the IconButtons
-                                    "appBarActionButtons":    React.PropTypes.element,
-                                    "appBarForegroundColor":  React.PropTypes.string,
-                                    "appBarBackgroundColor":  React.PropTypes.string,
+                                                                    // I can't help wondering if this should be
+                                                                    // a list of props to pass to the IconButtons
+                                    "appBarActionButtons":          React.PropTypes.element,
+
+
+                                    "appBarForegroundColor":        React.PropTypes.string,
+                                    "appBarBackgroundColor":        React.PropTypes.string,
+                                    "leftSideBarBackgroundColor":   React.PropTypes.string,
+                                    "rightSideBarBackgroundColor":  React.PropTypes.string,
                                   },
 
     "getDefaultProps":            function () {
@@ -43,7 +47,7 @@ var Main = React.createClass(
     "render":                     function () {
                                     // TODO: allow drawers to become sidebars on wide screens
 
-                                    return  <div>
+                                    return  <div style = { this.props.style }>
                                               <AppBar
                                                 shouldShowNavIcon   = { Boolean(this.props.leftSideBar) }
                                                 showNavAction       = { this.getFunxAction("showLeftDrawer") }
@@ -58,10 +62,11 @@ var Main = React.createClass(
                                               {
                                                 this.props.leftSideBar
                                                   ? <Drawer
-                                                      side       = "left"
-                                                      open       = { this.state.leftDrawerIsOpen }
-                                                      hideAction = { this.getFunxAction("hideLeftDrawer") }
-                                                      content    = { this.props.leftSideBar }
+                                                      side            = "left"
+                                                      open            = { this.state.leftDrawerIsOpen }
+                                                      hideAction      = { this.getFunxAction("hideLeftDrawer") }
+                                                      content         = { this.props.leftSideBar }
+                                                      backgroundColor = { this.props.leftSideBarBackgroundColor }
                                                     />
                                                   : null 
                                               }
@@ -73,10 +78,11 @@ var Main = React.createClass(
                                               {
                                                 this.props.rightSideBar
                                                   ? <Drawer
-                                                      side       = "right"
-                                                      open       = { this.state.rightDrawerIsOpen }
-                                                      hideAction = { this.getFunxAction("hideRightDrawer") }
-                                                      content    = { this.props.rightSideBar }
+                                                      side            = "right"
+                                                      open            = { this.state.rightDrawerIsOpen }
+                                                      hideAction      = { this.getFunxAction("hideRightDrawer") }
+                                                      content         = { this.props.rightSideBar }
+                                                      backgroundColor = { this.props.rightSideBarBackgroundColor }
                                                     />
                                                   : null
                                               }
@@ -87,7 +93,7 @@ var Main = React.createClass(
 
 var styles = {
   "content":  {
-                "marginTop":  AppBar.height + 4,
+                "marginTop":  AppBar.HEIGHT + 4,
                 "zIndex":     0,
               }
 };
