@@ -83,9 +83,9 @@ var IconButton = React.createClass(
   }
 );
 
-IconButton.visibleSize = 24;
-IconButton.padding     = 12;
-IconButton.totalSize   = IconButton.visibleSize + 2 * IconButton.padding;
+IconButton.VISIBLE_SIZE = 24;
+IconButton.PADDING      = 12;
+IconButton.TOTAL_SIZE   = IconButton.VISIBLE_SIZE + 2 * IconButton.PADDING;
 
 var styles = {
   "link":     autoprefixStyleProp(
@@ -95,9 +95,9 @@ var styles = {
                   "justifyContent":               "center",
                   "alignItems":                   "center",
 
-                  "width":                        IconButton.totalSize,
-                  "height":                       IconButton.totalSize,
-                  "padding":                      IconButton.padding,
+                  "width":                        IconButton.TOTAL_SIZE,
+                  "height":                       IconButton.TOTAL_SIZE,
+                  "padding":                      IconButton.PADDING,
 
                   "color":                        "inherit",
                   "textDecoration":               "none",
@@ -108,8 +108,8 @@ var styles = {
 
   "image":    autoprefixStyleProp(
                 {
-                  "width":                        IconButton.visibleSize,
-                  "height":                       IconButton.visibleSize,
+                  "width":                        IconButton.VISIBLE_SIZE,
+                  "height":                       IconButton.VISIBLE_SIZE,
                 }
               ),
 

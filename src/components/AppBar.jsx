@@ -66,7 +66,7 @@ var AppBar = React.createClass(
                                                             {
                                                               "marginLeft":                   this.props.shouldShowNavIcon
                                                                                                 ? 0
-                                                                                                : IconButton.padding,
+                                                                                                : IconButton.PADDING,
 
                                                               ...styles.logo 
                                                             }
@@ -82,7 +82,7 @@ var AppBar = React.createClass(
   }
 );
 
-AppBar.height  = 56;
+AppBar.HEIGHT  = 56;
 
 var styles = {
   "container":      autoprefixStyleProp(
@@ -96,14 +96,14 @@ var styles = {
                         "left":                         0,
 
                         "width":                        "100vw",
-                        "height":                       AppBar.height,
+                        "height":                       AppBar.HEIGHT,
                       }
                     ),
                                         
   "logo":           autoprefixStyleProp(
                       {
                         "maxHeight":                    IconButton.visibleSize,
-                        "maxWidth":                     `calc(100vw - ${ 2 * (IconButton.totalSize + IconButton.padding) }px)`,
+                        "maxWidth":                     `calc(100vw - ${ 2 * (IconButton.TOTAL_SIZE + IconButton.PADDING) }px)`,
                       }
                     ),
 };

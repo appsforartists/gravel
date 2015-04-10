@@ -92,28 +92,28 @@ var Drawer = React.createClass(
   }
 );
 
-Drawer.transitionDuration = .6;
+Drawer.TRANSITION_DURATION = .6;
 
 var bloomerWidth = "15vw";
 
 var styles = {
   "scrim":    {
                 "transitionProperty":           "opacity",
-                "transitionDuration":           Drawer.transitionDuration + "s",
+                "transitionDuration":           Drawer.TRANSITION_DURATION + "s",
                 
                 ...Layer.getStylesBelowElevation(2),
               },
   
   "drawer":   {
                 "common": {
-                            "transitionDuration":           Drawer.transitionDuration + "s",
+                            "transitionDuration":           Drawer.TRANSITION_DURATION + "s",
                             "transitionProperty":           "transform -webkit-transform",
 
                             "position":                     "fixed",
                             "top":                          0,
 
                             "height":                       "100vh",
-                            "width":                        `calc(100vw - ${ AppBar.height }px)`,
+                            "width":                        `calc(100vw - ${ AppBar.HEIGHT }px)`,
                           },
                             
                           /*  We want the right edge of the drawer to match the left
@@ -133,7 +133,7 @@ var styles = {
                                         {
                                           "transform":                    `translateX(
                                                                             calc(
-                                                                              100vw - ${ AppBar.height }px
+                                                                              100vw - ${ AppBar.HEIGHT }px
                                                                             )
                                                                           )`,
                                         }
@@ -151,7 +151,7 @@ var styles = {
                                         {
                                           "transform":                    `translateX(
                                                                             calc(
-                                                                              ${ AppBar.height }px - 100vw
+                                                                              ${ AppBar.HEIGHT }px - 100vw
                                                                             )
                                                                           )`,
                                         }
