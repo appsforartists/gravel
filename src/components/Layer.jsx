@@ -5,84 +5,49 @@ var View = require("./View");
 var Layer = React.createClass(
   {
     "propTypes":                  {
-                                    "elevation":      React.PropTypes.number
+                                    "elevation":      React.PropTypes.number,
+                                    "tagName":        React.PropTypes.string,
                                   },
 
     "getDefaultProps":            function () {
                                     return {
-                                      "elevation":    0
+                                      "elevation":    0,
+                                      "tagName":      "div",
                                     }
                                   },
 
-    "componentWillMount":         function () {
-                                    this.recomputeStyles();
-                                  },
-                                  
-    "componentWillUpdate":        function (nextProps) {
-                                    if (this.props.elevation != nextProps.elevation)
-                                      this.recomputeStyles();
-                                  },
-
-    "recomputeStyles":            function () {
-                                    this.setState(
-                                      {
-                                        "styles": {
-                                                    "container":    Object.assign(
-                                                                      {},
-                                                                      
-                                                                      this.props.style,
-                                                                      stylesForElevation[this.props.elevation].container 
-                                                                    ),
-
-                                                    "secondShadow": Object.assign(
-                                                                      {
-                                                                        "position":   "absolute",
-                                                                        "top":        0,
-                                                                        "left":       0,
-                                                                        "width":      "100%",
-                                                                        "height":     "100%",
-                                                                        "height":     -1000,
-                                                                      },
-
-                                                                      stylesForElevation[this.props.elevation].secondShadow
-                                                                    )
-                                                  }
-                                      }
-                                    )
-                                  },
-
     "render":                     function () {
-                                    /*  This was the first file ported over from SCSS and probably needs to be
-                                     *  revisited.
-                                     *  
-                                     *  - The divs should be eliminated, with secondShadow added to the View's
-                                     *    children.
-                                     *
-                                     *  - The whole recomputeStyles flow is could be a premature optimization 
-                                     *    that doesn't match the rest of the library.
-                                     *
-                                     *  The original port of CollapsableShingles relied on Layer, but it was
-                                     *  scrapped because it was introducing bugs where position:absolute
-                                     *  was sticking to one of the divs even after it had been removed as a 
-                                     *  prop.
-                                     *
-                                     *  I briefly experimented with concating secondShadow into 
-                                     *  propsPassthrough.children, but it wasn't working as expected.
-                                     *
-                                     *  TODO: try again.
-                                     */
+                                    var {
+                                      style,
+                                      children,
+                                      ...propsPassthrough
+                                    } = this.props;
 
-                                    return  <div 
-                                              style = { this.state.styles.container }
+                                    return  <View
+                                              tagName = { this.props.tagName } 
+                                              style   = {
+                                                          {
+                                                            ...stylesForElevation[this.props.elevation].container,
+                                                            ...style,
+                                                          }
+                                                        }
                                             >                                    
                                               <div 
-                                                style = { this.state.styles.secondShadow } 
+                                                style = {
+                                                          {
+                                                            ...stylesForElevation[this.props.elevation].secondShadow,
+
+                                                            "position":   "absolute",
+                                                            "top":        0,
+                                                            "left":       0,
+                                                            "width":      "100%",
+                                                            "height":     "100%"
+                                                          }                                                  
+                                                        } 
                                               />
 
-                                              <View 
-                                                { ...this.props }
-                                              />
-                                            </div>;
+                                              { children }
+                                            </View>;
                                   }
   }
 );
