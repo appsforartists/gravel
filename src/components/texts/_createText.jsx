@@ -9,28 +9,39 @@ var createText = function (
     truncate
   }
 ) {
-  if (truncate) {
-    styles = Object.assign(
-      {},
+  var truncatedStyles = Object.assign(
+    {},
 
-      styles,
+    styles,
 
-      {
-        "whiteSpace":                   "nowrap",
-        "textOverflow":                 "ellipsis",
-        "overflow":                     "hidden",
-      }
-    );
-  }
-
+    {
+      "whiteSpace":                   "nowrap",
+      "textOverflow":                 "ellipsis",
+      "overflow":                     "hidden",
+    }
+  );
 
   return React.createClass(
     {
       "displayName":                displayName,
 
       "render":                     function () {
+                                      var useTruncatedStyles = this.props.truncate === undefined
+                                        ? truncate
+                                        : this.props.truncate;
+
                                       return  <View
-                                                style = { styles }
+                                                style = {
+                                                          Object.assign(
+                                                            {},
+
+                                                            useTruncatedStyles
+                                                              ? truncatedStyles
+                                                              : styles,
+
+                                                            this.props.style
+                                                          )
+                                                        }
                                               >
                                                 { this.props.children }
                                               </View>;
