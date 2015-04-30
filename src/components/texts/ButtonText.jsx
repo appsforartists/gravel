@@ -1,4 +1,5 @@
 var createText = require("./_createText");
+var packageGlobals = require("gravel");
 
 var ButtonText = createText(
   {
@@ -11,7 +12,7 @@ var ButtonText = createText(
                       "textTransform":                "uppercase",
 
                       "display":                      "inline-block",
-                      "minHeight":                    48,
+                      "minHeight":                    packageGlobals.TOUCH_TARGET_MINIMUM_SIZE,
 
                       "paddingLeft":                  12,
                       "paddingRight":                 12,
