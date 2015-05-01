@@ -30,7 +30,14 @@ var createText = function (
                                         ? truncate
                                         : this.props.truncate;
 
+                                      var {
+                                        truncate,
+                                        ...propsPassthrough
+                                      } = this.props;
+
                                       return  <View
+                                                { ...propsPassthrough }
+                                                
                                                 style = {
                                                           Object.assign(
                                                             {},
@@ -42,9 +49,7 @@ var createText = function (
                                                             this.props.style
                                                           )
                                                         }
-                                              >
-                                                { this.props.children }
-                                              </View>;
+                                              />;
                                     }
     }
   );

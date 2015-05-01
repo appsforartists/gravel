@@ -4,7 +4,7 @@
   "description": "An unfinished React implementation of Material Design.",
   "main": "src/index.js",
   "dependencies": {
-    "autoprefix-style-prop": "~1.0.1",
+    "autoprefix-style-prop": "~1.0.2",
     "react-immutable-render-mixin": "0.8"
   },
   "peerDependencies": {
