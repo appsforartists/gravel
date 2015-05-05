@@ -8,6 +8,9 @@ var Input = React.createClass(
   {
     "propTypes":                  {
                                     "label":            React.PropTypes.string.isRequired,
+                                    "onChange":         React.PropTypes.func.isRequired,
+                                    "onFocus":          React.PropTypes.func,
+                                    "onBlur":           React.PropTypes.func,
                                   },
 
     "getInitialState":            function () {
@@ -74,6 +77,9 @@ var Input = React.createClass(
                                         "focused":  true,
                                       }
                                     );
+
+                                    if (this.props.onFocus)
+                                      this.props.onFocus(event);
                                   },
 
     "onBlur":                     function (event) {
@@ -83,6 +89,9 @@ var Input = React.createClass(
                                         "focused":  false,
                                       }
                                     );
+
+                                    if (this.props.onBlur)
+                                      this.props.onBlur(event);
                                   },
 
     "onChange":                   function (event) {
@@ -91,6 +100,8 @@ var Input = React.createClass(
                                         "value":    this.refs.input.getDOMNode().value
                                       }
                                     );
+
+                                    this.props.onChange(event);
                                   },
   }
 );
