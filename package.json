@@ -22,5 +22,8 @@
   "contributors": [
     "Brenton Simpson <bresimpson@ebay.com> (http://appsforartists.com)"
   ],
+  "keywords": [
+    "react-component"
+  ],
   "license": "MIT"
 }
