@@ -16,6 +16,5 @@ module.exports = {
   "ScrollPane":           require("./ScrollPane"),
   "Shingle":              require("./Shingle"),
   "Silhouette":           require("./Silhouette"),
-  "SubmitButton":         require("./SubmitButton"),
   "View":                 require("./View"),
 };

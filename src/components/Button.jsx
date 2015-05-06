@@ -10,6 +10,7 @@ var Button = React.createClass(
                                     "label":              React.PropTypes.string.isRequired,
                                     "onTouchTap":         React.PropTypes.func.isRequired,
 
+                                    "isSubmit":           React.PropTypes.bool,
                                     "foregroundColor":    React.PropTypes.string,
                                     "backgroundColor":    React.PropTypes.string,
                                     "elevation":          React.PropTypes.number,
@@ -21,33 +22,32 @@ var Button = React.createClass(
                                       "backgroundColor":  "red",
                                       "elevation":        1,
                                       "tabIndex":         0,
+                                      "isSubmit":         false,
                                     }
                                   },
 
     "render":                     function () {
                                     return  <Layer 
                                               elevation = { this.props.elevation } 
-                                              style     = {
-                                                            {
-                                                              "color":            this.props.foregroundColor,
-                                                              "backgroundColor":  this.props.backgroundColor,
-                                                            }
-                                                          }
                                             >
                                               <ButtonText
+                                                tagName     = "input"
+                                                type        = {
+                                                                this.props.isSubmit
+                                                                  ? "submit"
+                                                                  : "button"
+                                                              }
+                                                style       = {
+                                                                {
+                                                                  "color":            this.props.foregroundColor,
+                                                                  "backgroundColor":  this.props.backgroundColor,
+                                                                }
+                                                              }
+                                                value       = { this.props.label }
                                                 onTouchTap  = { this.props.onTouchTap }
-                                                onKeyPress  = { this.onKeyPress }
                                                 tabIndex    = { this.props.tabIndex }
-                                              >
-                                                { this.props.label }
-                                              </ButtonText>
+                                              />
                                             </Layer>;
-                                  },
-
-    "onKeyPress":                 function (event) {
-                                    if (["Enter", " "].includes(event.key)) {
-                                      this.props.onTouchTap(event);
-                                    }
                                   },
   }
 );
