@@ -2,7 +2,7 @@ var Ambidex     = require("ambidex");
 var React       = require("react/addons");
 var ReactRouter = require("react-router");
 
-RouteHandler = ReactRouter.RouteHandler;
+var RouteHandler = ReactRouter.RouteHandler;
 
 var AppBar = require("./AppBar");
 var Drawer = require("./Drawer");
