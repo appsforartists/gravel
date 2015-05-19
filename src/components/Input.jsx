@@ -11,6 +11,14 @@ var Input = React.createClass(
                                     "onChange":         React.PropTypes.func.isRequired,
                                     "onFocus":          React.PropTypes.func,
                                     "onBlur":           React.PropTypes.func,
+                                    
+                                    "focusColor":       React.PropTypes.string,
+                                  },
+
+    "getDefaultProps":            function () {
+                                    return {
+                                      "focusColor":     "red",
+                                    }
                                   },
 
     "getInitialState":            function () {
@@ -18,6 +26,11 @@ var Input = React.createClass(
                                               // Need a better way to make unique IDs that won't break isomorphic checksums
                                       "id":   this.props.label + Math.random().toString().substr(1)
                                     }
+                                  },
+
+    "componentDidMount":          function () {
+                                    // Detect autofill
+                                    this.updateStateFromDOM();
                                   },
 
     "render":                     function () {
@@ -38,6 +51,14 @@ var Input = React.createClass(
                                                                 this.state.active 
                                                                   ? styles.label.active
                                                                   : styles.label.inactive
+                                                              ),
+
+                                                              ...(
+                                                                this.state.focused
+                                                                  ? {
+                                                                      "color":    this.props.focusColor
+                                                                    }
+                                                                  : null
                                                               )
                                                             }
                                                           }
@@ -57,7 +78,11 @@ var Input = React.createClass(
 
                                                               ...(
                                                                 this.state.focused 
-                                                                  ? styles.input.focused
+                                                                  ? {
+                                                                      ...styles.input.focused,
+
+                                                                      "borderColor":    this.props.focusColor,
+                                                                    }
                                                                   : styles.input.unfocused
                                                               ),
                                                             }
@@ -95,25 +120,32 @@ var Input = React.createClass(
                                   },
 
     "onChange":                   function (event) {
-                                    this.setState(
-                                      {
-                                        "value":    this.refs.input.getDOMNode().value
-                                      }
-                                    );
+                                    this.updateStateFromDOM();
 
                                     this.props.onChange(event);
+                                  },
+
+    "updateStateFromDOM":         function () {
+                                    var value = this.refs.input.getDOMNode().value;
+
+                                    this.setState(
+                                      {
+                                        "value":    value,
+                                        "active":   Boolean(value && value.trim())
+                                      }
+                                    );
                                   },
   }
 );
 
 Input.TRANSITION_DURATION = ".5s";
-Input.PADDING_BOTTOM      = 8;
+Input.PADDING             = 16;
 
 var styles = {
   "container":  autoprefixStyleProp(
                   {
                     "position":                     "relative",
-                    "height":                       "2.5em",
+                    "height":                       "4.5em", // 72px at fontSize == 16
                     "justifyContent":               "flex-end",
                   }
                 ),
@@ -122,8 +154,9 @@ var styles = {
                   "common":   autoprefixStyleProp(
                                 {
                                   "position":                     "absolute",
+                                  "left":                         0,
+                                  "bottom":                       Input.PADDING,
                                   "display":                      "inline-block",
-                                  "height":                       "100%",
 
                                   "fontSize":                     "1em",
                                   "textAlign":                    "left",
@@ -140,13 +173,13 @@ var styles = {
                   "inactive": autoprefixStyleProp(
                                 {
                                   "opacity":                      .4,
-                                  "transform":                    `translateY(-${ Input.PADDING_BOTTOM - 4 }px) scale(1)`,
+                                  "transform":                    `translateY(0em) scale(1)`,
                                 }
                               ),
 
                   "active":   autoprefixStyleProp(
                                 {
-                                  "transform":                    "translateY(-1em) scale(.5)",
+                                  "transform":                    `translateY(-1em) scale(${ 12/16 })`,
                                   "opacity":                      1,
                                 }
                               ),
@@ -160,7 +193,8 @@ var styles = {
                                     "outline":                      "none",
                                     "backgroundColor":              "transparent",
                                     "fontSize":                     "1em",
-                                    "paddingBottom":                Input.PADDING_BOTTOM,
+                                    "paddingBottom":                Input.PADDING / 2 - 1,
+                                    "marginBottom":                 Input.PADDING / 2,
                                     
                                     "transitionProperty":           "border",
                                     "transitionDuration":           Input.TRANSITION_DURATION,
@@ -174,7 +208,7 @@ var styles = {
                                 },
 
                   "focused":    {
-                                  "borderBottom":                 "3px solid #000099",
+                                  "borderBottom":                 "2px solid",
                                 },
                 },
 };
