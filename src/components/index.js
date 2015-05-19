@@ -6,6 +6,7 @@ module.exports = {
   "Card":                 require("./Card"),
   "CollapsableShingles":  require("./CollapsableShingles"),
   "Drawer":               require("./Drawer"),
+  "Dialog":               require("./Dialog"),
   "DisclosureTriangle":   require("./DisclosureTriangle"),
   "Grid":                 require("./Grid"),
   "IconButton":           require("./IconButton"),

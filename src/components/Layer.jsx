@@ -45,6 +45,9 @@ Layer.getStylesBelowElevation = function (elevation) {
 };
 
 Layer.getStylesAboveElevation = function (elevation) {
+  if ([-1, Number.MAX_VALUE, Number.MAX_SAFE_INTEGER].includes(elevation))
+    elevation = stylesForElevation.length - 1;
+
   return {
     "zIndex": stylesForElevation[elevation].zIndex + 1000
   }

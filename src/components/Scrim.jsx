@@ -8,9 +8,15 @@ var Scrim = React.createClass(
                                     "style":      React.PropTypes.object
                                   },
 
+    "getDefaultProps":            function () {
+                                    return {
+                                      "style":   {},
+                                    }
+                                  },
+
     "getInitialState":            function () {
                                     return {
-                                      "dissolving":   false
+                                      "dissolving":   false,
                                     }
                                   },
 
@@ -107,7 +113,7 @@ var styles = {
                 },
 
   "visible":    {
-                  "opacity":                      0.16,
+                  "opacity":                      0.2,
                 },
 };
 
