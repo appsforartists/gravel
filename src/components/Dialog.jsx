@@ -92,6 +92,12 @@ var styles = {
                       }
                     ),
 
+  "layer":          {
+                      "maxWidth":                     "100vw",
+                      "maxHeight":                    "100vh",
+                      "overflow":                     "scroll",
+                    },
+
   "body":           {
                       "margin":                       24,
                     },
