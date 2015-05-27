@@ -14,10 +14,12 @@ var AppBar = React.createClass(
     "propTypes":                  {
                                     "imagesURL":          React.PropTypes.string.isRequired,
                                     "logoSrc":            React.PropTypes.string.isRequired,
+                                    "logoDestination":    React.PropTypes.string,
                                     "actionButtons":      React.PropTypes.element,
                                     "shouldShowNavIcon":  React.PropTypes.bool,
                                     "showNavAction":      React.PropTypes.func,
                                     "makeLogoSilhouette": React.PropTypes.bool,
+                                    "forceCenterLogo":    React.PropTypes.bool,
                                     "style":              React.PropTypes.object,
                                     "foregroundColor":    React.PropTypes.string,
                                     "backgroundColor":    React.PropTypes.string,
@@ -25,7 +27,9 @@ var AppBar = React.createClass(
 
     "getDefaultProps":            function () {
                                     return {
-                                      "makeLogoSilhouette": false
+                                      "logoDestination":    "home",
+                                      "makeLogoSilhouette": false,
+                                      "forceCenterLogo":    false,
                                     }
                                   },
 
@@ -55,16 +59,18 @@ var AppBar = React.createClass(
 
                                                       silhouetteColor = { this.props.foregroundColor }
                                                     />
-                                                  : null
+                                                  : this.props.forceCenterLogo
+                                                    ? <span />
+                                                    : null
                                               }
 
-                                              <Link to = "home">
+                                              <Link to = { this.props.logoDestination }>
                                                 <ImageClass 
                                                   src   = { this.props.logoSrc } 
                                                   color = { this.props.foregroundColor }
                                                   style = { 
                                                             {
-                                                              "marginLeft":                   this.props.shouldShowNavIcon
+                                                              "marginLeft":                   this.props.shouldShowNavIcon || this.props.forceCenterLogo
                                                                                                 ? 0
                                                                                                 : IconButton.PADDING,
 

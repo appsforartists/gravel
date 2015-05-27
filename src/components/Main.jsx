@@ -12,6 +12,7 @@ var Main = React.createClass(
     "propTypes":                  {
                                     "staticURL":                    React.PropTypes.string.isRequired,
                                     "logoSrc":                      React.PropTypes.string.isRequired,
+                                    "logoDestination":              React.PropTypes.string,
                                     
                                     "makeLogoSilhouette":           React.PropTypes.bool,
                                     "leftSideBar":                  React.PropTypes.element,
@@ -20,7 +21,7 @@ var Main = React.createClass(
                                                                     // I can't help wondering if this should be
                                                                     // a list of props to pass to the IconButtons
                                     "appBarActionButtons":          React.PropTypes.element,
-
+                                    "appBarForceCenterLogo":        React.PropTypes.bool,
 
                                     "appBarForegroundColor":        React.PropTypes.string,
                                     "appBarBackgroundColor":        React.PropTypes.string,
@@ -30,6 +31,9 @@ var Main = React.createClass(
 
     "getDefaultProps":            function () {
                                     return {
+                                      "logoDestination":        "home",
+                                      "appBarForceCenterLogo":  false,
+
                                       "appBarForegroundColor":  "black",
                                       "appBarBackgroundColor":  "white",
                                     }
@@ -54,6 +58,8 @@ var Main = React.createClass(
                                                 imagesURL           = { this.props.staticURL + "images/" }
                                                 actionButtons       = { this.props.appBarActionButtons }
                                                 logoSrc             = { this.props.logoSrc }
+                                                logoDestination     = { this.props.logoDestination }
+                                                forceCenterLogo     = { this.props.appBarForceCenterLogo }
                                                 makeLogoSilhouette  = { this.props.makeLogoSilhouette }
                                                 foregroundColor     = { this.props.appBarForegroundColor }
                                                 backgroundColor     = { this.props.appBarBackgroundColor }
