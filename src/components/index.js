@@ -13,6 +13,7 @@ module.exports = {
   "Input":                require("./Input"),
   "Layer":                require("./Layer"),
   "Main":                 require("./Main"),
+  "Menu":                 require("./Menu"),
   "PersonTile":           require("./PersonTile"),
   "Scrim":                require("./Scrim"),
   "ScrollPane":           require("./ScrollPane"),
