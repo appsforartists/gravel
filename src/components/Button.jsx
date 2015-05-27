@@ -26,9 +26,20 @@ var Button = React.createClass(
                                     }
                                   },
 
+    "getInitialState":            function () {
+                                    return {
+                                      "focused":          false
+                                    }
+                                  },
+
     "render":                     function () {
+                                    var elevation = this.props.elevation;
+
+                                    if (this.state.focused)
+                                      elevation++;
+
                                     return  <Layer 
-                                              elevation = { this.props.elevation } 
+                                              elevation = { elevation } 
                                             >
                                               <ButtonText
                                                 tagName     = "input"
@@ -41,13 +52,40 @@ var Button = React.createClass(
                                                                 {
                                                                   "color":            this.props.foregroundColor,
                                                                   "backgroundColor":  this.props.backgroundColor,
+
+                                                                                      // don't draw the browser's blue focus box, because Layer gives us shadows for free
+                                                                  "outline":          "none",
                                                                 }
                                                               }
                                                 value       = { this.props.label }
                                                 onTouchTap  = { this.props.onTouchTap }
-                                                tabIndex    = { this.props.tabIndex }
+                                                onFocus     = { this.onFocus }
+                                                onBlur      = { this.onBlur }
+                                                tabIndex    = { this.props.tabIndex }                                                          
                                               />
                                             </Layer>;
+                                  },
+
+    "onFocus":                    function (event) {
+                                    this.setState(
+                                      {
+                                        "focused":  true,
+                                      }
+                                    );
+
+                                    if (this.props.onFocus)
+                                      this.props.onFocus(event);
+                                  },
+
+    "onBlur":                     function (event) {
+                                    this.setState(
+                                      {
+                                        "focused":  false,
+                                      }
+                                    );
+
+                                    if (this.props.onBlur)
+                                      this.props.onBlur(event);
                                   },
   }
 );

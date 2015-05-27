@@ -1,6 +1,9 @@
 var React       = require("react/addons");
 
-var View = require("./View");
+var autoprefixStyleProp = require("autoprefix-style-prop");
+
+var easings = require("../styles/easings");
+var View    = require("./View");
 
 var Layer = React.createClass(
   {
@@ -27,7 +30,8 @@ var Layer = React.createClass(
                                               tagName = { this.props.tagName } 
                                               style   = {
                                                           {
-                                                            ...stylesForElevation[this.props.elevation],
+                                                            ...styles.common,
+                                                            ...styles.forElevation[this.props.elevation],
                                                             ...style,
                                                           }
                                                         }
@@ -40,50 +44,59 @@ var Layer = React.createClass(
 
 Layer.getStylesBelowElevation = function (elevation) {
   return {
-    "zIndex": stylesForElevation[elevation].zIndex - 1000
+    "zIndex": styles.forElevation[elevation].zIndex - 1000
   }
 };
 
 Layer.getStylesAboveElevation = function (elevation) {
   if ([-1, Number.MAX_VALUE, Number.MAX_SAFE_INTEGER].includes(elevation))
-    elevation = stylesForElevation.length - 1;
+    elevation = styles.forElevation.length - 1;
 
   return {
-    "zIndex": stylesForElevation[elevation].zIndex + 1000
+    "zIndex": styles.forElevation[elevation].zIndex + 1000
   }
 };
 
 // Shadow values from https://www.google.com/design/spec/layout/layout-principles.html#layout-principles-dimensionality
 
-var stylesForElevation = [
-  {
-    "zIndex":     0
-  },
+var styles = {
+  "common":         autoprefixStyleProp(
+                      {
+                        "transitionProperty":           "box-shadow",
+                        "transitionDuration":           ".25s",
+                      }
+                    ),
 
-  {
-    "zIndex":     10000,
-    "boxShadow":  "0px 1px 1.5px rgba(  0,   0,   0, .12), 0px 1px 1px   rgba(  0,   0,   0, .24)",
-  },
+  "forElevation":   [
+                      {
+                        "zIndex":     0
+                      },
 
-  {
-    "zIndex":     20000,
-    "boxShadow":  "0px 3px 3px rgba(  0,   0,   0, .16), 0px 3px 3px rgba(  0,   0,   0, .23)",
-  },
+                      {
+                        "zIndex":     10000,
+                        "boxShadow":  "0px 1px 1.5px rgba(  0,   0,   0, .12), 0px 1px 1px   rgba(  0,   0,   0, .24)",
+                      },
 
-  {
-    "zIndex":     30000,
-    "boxShadow":  "0px 10px 10px rgba(  0,   0,   0, .19), 0px  6px  3px rgba(  0,   0,   0, .23)",
-  },
+                      {
+                        "zIndex":     20000,
+                        "boxShadow":  "0px 3px 3px rgba(  0,   0,   0, .16), 0px 3px 3px rgba(  0,   0,   0, .23)",
+                      },
 
-  {
-    "zIndex":     40000,
-    "boxShadow":  "0px 14px 14px rgba(  0,   0,   0, .25), 0px 10px  5px rgba(  0,   0,   0, .22)",
-  },
-        
-  {
-    "zIndex":     50000,
-    "boxShadow":  "0px 19px 19px rgba(  0,   0,   0, .30), 0px 15px  6px rgba(  0,   0,   0, .22)",
-  },
-];
+                      {
+                        "zIndex":     30000,
+                        "boxShadow":  "0px 10px 10px rgba(  0,   0,   0, .19), 0px  6px  3px rgba(  0,   0,   0, .23)",
+                      },
+
+                      {
+                        "zIndex":     40000,
+                        "boxShadow":  "0px 14px 14px rgba(  0,   0,   0, .25), 0px 10px  5px rgba(  0,   0,   0, .22)",
+                      },
+                            
+                      {
+                        "zIndex":     50000,
+                        "boxShadow":  "0px 19px 19px rgba(  0,   0,   0, .30), 0px 15px  6px rgba(  0,   0,   0, .22)",
+                      },
+                    ]
+};
 
 module.exports = Layer;
