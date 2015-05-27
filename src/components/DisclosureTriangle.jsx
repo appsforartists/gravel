@@ -27,6 +27,7 @@ var DisclosureTriangle = React.createClass(
                                                                 ),
                                                                 ...styles.common,
                                                                 ...easings.fallAndRecoil,
+                                                                ...this.props.style,
                                                               }
                                                             }
                                             >
@@ -34,22 +35,26 @@ var DisclosureTriangle = React.createClass(
                                                 version   = "1.1"
                                                 x         = "0px"
                                                 y         = "0px"
-                                                width     = "14px"
-                                                height    = "7px"
-                                                viewBox   = "0 0 14 7"
+                                                width     = { `${ 2 * DisclosureTriangle.HEIGHT }px` }
+                                                height    = { `${     DisclosureTriangle.HEIGHT }px` }
+                                                viewBox   = { `0 0 ${ 2 * DisclosureTriangle.HEIGHT } ${ DisclosureTriangle.HEIGHT }` }
                                               >
                                                 <polyline
-                                                  points="
-                                                    14, 0
-                                                     7, 7
-                                                     0, 0
-                                                  "
+                                                  points  = { 
+                                                              `
+                                                                ${ 2 * DisclosureTriangle.HEIGHT }, 0
+                                                                ${     DisclosureTriangle.HEIGHT }, ${ DisclosureTriangle.HEIGHT }
+                                                                0,                                  0
+                                                              `
+                                                            }
                                                 />
                                               </svg>
                                             </div>;
                                   }
   }
 );
+
+DisclosureTriangle.HEIGHT = 7;
 
 var styles = {
   "common":     autoprefixStyleProp(
