@@ -2,7 +2,8 @@ var React       = require("react/addons");
 
 var autoprefixStyleProp = require("autoprefix-style-prop");
 
-var easings     = require("../styles/easings");
+var defaultColors = require("../colors").defaults;
+var easings       = require("../styles/easings");
 
 var Input = React.createClass(
   {
@@ -11,21 +12,36 @@ var Input = React.createClass(
                                     "onChange":         React.PropTypes.func.isRequired,
                                     "onFocus":          React.PropTypes.func,
                                     "onBlur":           React.PropTypes.func,
+                                    "focusable":        React.PropTypes.bool,
                                     
-                                    "focusColor":       React.PropTypes.string,
+                                    "colors":           React.PropTypes.shape(
+                                                          {
+                                                            "LABEL":            React.PropTypes.string,
+                                                            "FOCUS":            React.PropTypes.string,
+                                                            "ERROR":            React.PropTypes.string,
+                                                            "INPUT_STROKE":     React.PropTypes.string,
+                                                            "DISABLED_STROKE":  React.PropTypes.string,
+                                                          }
+                                                        ),
                                   },
 
     "getDefaultProps":            function () {
                                     return {
-                                      "focusColor":     "red",
+                                      "focusable":  true,
+                                      "colors":     defaultColors,
                                     }
                                   },
 
     "getInitialState":            function () {
                                     return {
-                                              // Need a better way to make unique IDs that won't break isomorphic checksums
-                                      "id":   this.props.label + Math.random().toString().substr(1)
+                                                  // Need a better way to make unique IDs that won't break isomorphic checksums
+                                      "id":       this.props.label + Math.random().toString().substr(1),
+                                      "focused":  false
                                     }
+                                  },
+
+    "componentWillMount":         function () {
+                                    this.updateStateFromProps(this.props);
                                   },
 
     "componentDidMount":          function () {
@@ -33,13 +49,24 @@ var Input = React.createClass(
                                     this.updateStateFromDOM();
                                   },
 
+    "componentWillReceiveProps":  function (nextProps) {
+                                    this.updateStateFromProps(nextProps);
+                                  },
+
     "render":                     function () {
+                                    var animable = this.props.focusable && !this.props.readOnly;
                                     var {
+                                      style,
                                       ...propsPassthrough
                                     } = this.props;
 
                                     return  <div
-                                              style = { styles.container }
+                                              style = { 
+                                                        {
+                                                          ...styles.container,
+                                                          ...style,
+                                                        }
+                                                      }
                                             >
                                               <label
                                                 htmlFor = { this.state.id }
@@ -54,12 +81,20 @@ var Input = React.createClass(
                                                               ),
 
                                                               ...(
-                                                                this.state.focused
+                                                                this.state.focused 
                                                                   ? {
-                                                                      "color":    this.props.focusColor
+                                                                      "color":    this.props.colors["FOCUS"],
                                                                     }
+                                                                  : {
+                                                                      "color":    this.props.colors["LABEL"],
+                                                                    }
+                                                              ),
+
+                                                              ...(
+                                                                animable
+                                                                  ? styles.label.animable
                                                                   : null
-                                                              )
+                                                              ),
                                                             }
                                                           }
                                               >
@@ -67,30 +102,48 @@ var Input = React.createClass(
                                               </label>
 
                                               <input 
+                                                tabIndex  = {
+                                                              this.props.focusable
+                                                                ? 0
+                                                                : -1
+                                                            }
+                                                
                                                 { ...propsPassthrough }
                                                 
-                                                id      = { this.state.id }
-                                                ref     = "input"
+                                                id        = { this.state.id }
+                                                ref       = "input"
 
-                                                style   = {
-                                                            {
-                                                              ...styles.input.common,
+                                                style     = {
+                                                              {
+                                                                ...styles.input.common,
 
-                                                              ...(
-                                                                this.state.focused 
-                                                                  ? {
-                                                                      ...styles.input.focused,
+                                                                ...(
+                                                                  this.props.readOnly
+                                                                    ? {
+                                                                        "borderBottom":    `1px dotted ${ this.props.colors["DISABLED_STROKE"] }`,
+                                                                      }
 
-                                                                      "borderColor":    this.props.focusColor,
-                                                                    }
-                                                                  : styles.input.unfocused
-                                                              ),
+                                                                    : this.state.focused 
+                                                                      ? {
+                                                                          "borderBottom":  `2px solid ${ this.props.colors["FOCUS"] }`,
+                                                                        }
+
+                                                                      : {
+                                                                          "borderBottom":  `1px solid ${ this.props.colors["INPUT_STROKE"] }`,
+                                                                        }
+                                                                ),
+
+                                                                ...(
+                                                                  animable
+                                                                    ? styles.input.animable
+                                                                    : null
+                                                                ),
+                                                              }
                                                             }
-                                                          }
 
-                                                onChange = { this.onChange }
-                                                onFocus  = { this.onFocus }
-                                                onBlur   = { this.onBlur }
+                                                onChange  = { this.onChange }
+                                                onFocus   = { this.onFocus }
+                                                onBlur    = { this.onBlur }
                                               />
                                             </div>;
                                   },
@@ -122,11 +175,12 @@ var Input = React.createClass(
     "onChange":                   function (event) {
                                     this.updateStateFromDOM();
 
-                                    this.props.onChange(event);
+                                    if (this.props.focusable || this.props.onChange)
+                                      this.props.onChange(event);
                                   },
 
-    "updateStateFromDOM":         function () {
-                                    var value = this.refs.input.getDOMNode().value;
+    "updateStateFromProps":       function (props) {
+                                    var value = props.value;
 
                                     this.setState(
                                       {
@@ -135,11 +189,33 @@ var Input = React.createClass(
                                       }
                                     );
                                   },
+                                  
+    "updateStateFromDOM":         function () {
+                                    var value = this.refs.input.getDOMNode().value;
+
+                                    this.setState(
+                                      {
+                                        "value":    value,
+                                      }
+                                    );
+
+                                    this.updateActiveState();
+                                  },
+                                  
+    "updateActiveState":          function () {
+                                    var value = this.state.value;
+
+                                    this.setState(
+                                      {
+                                        "active":   this.state.focused || Boolean(value && value.trim())
+                                      }
+                                    );
+                                  },
   }
 );
 
 Input.TRANSITION_DURATION = ".5s";
-Input.PADDING             = 16;
+Input.PADDING             = 8;
 
 var styles = {
   "container":  autoprefixStyleProp(
@@ -155,17 +231,22 @@ var styles = {
                                 {
                                   "position":                     "absolute",
                                   "left":                         0,
-                                  "bottom":                       Input.PADDING,
+                                  "bottom":                       2 * Input.PADDING,
                                   "display":                      "inline-block",
 
                                   "fontSize":                     "1em",
                                   "textAlign":                    "left",
                                   "verticalAlign":                "bottom",
-
+                                  
                                   "transformOrigin":              "0px 0px",
+                                }
+                              ),
+
+                  "animable": autoprefixStyleProp(
+                                {
                                   "transitionProperty":           "transform opacity",
                                   "transitionDuration":           Input.TRANSITION_DURATION,
-                                  
+                                 
                                   ...easings.fallAndRecoil,
                                 }
                               ),
@@ -178,38 +259,33 @@ var styles = {
                               ),
 
                   "active":   autoprefixStyleProp(
-                                {
-                                  "transform":                    `translateY(-1em) scale(${ 12/16 })`,
+                                {                                 // The Material docs specify a 12px font, but give it a 16px container
+                                                                  // so subtract 2 extra pixels to center it in the box
+                                  "transform":                    `translateY(-${ 1 + 2 / 16 }em) scale(${ 12 / 16 })`,
                                   "opacity":                      1,
                                 }
                               ),
                 },
 
   "input":      {
-                  "common":     autoprefixStyleProp(
+                  "common":     {
+                                  "boxShadow":                    "none",
+                                  "borderRadius":                 0,
+                                  "outline":                      "none",
+                                  "backgroundColor":              "transparent",
+                                  "fontSize":                     "1em",
+                                  "paddingBottom":                Input.PADDING - 1,
+                                  "marginBottom":                 Input.PADDING,
+                                },
+
+                  "animable":   autoprefixStyleProp(
                                   {
-                                    "boxShadow":                    "none",
-                                    "borderRadius":                 0,
-                                    "outline":                      "none",
-                                    "backgroundColor":              "transparent",
-                                    "fontSize":                     "1em",
-                                    "paddingBottom":                Input.PADDING / 2 - 1,
-                                    "marginBottom":                 Input.PADDING / 2,
-                                    
                                     "transitionProperty":           "border",
                                     "transitionDuration":           Input.TRANSITION_DURATION,
                                     
                                     ...easings.fallAndRecoil,
                                   }
                                 ),
-
-                  "unfocused":  {
-                                  "borderBottom":                 "1px solid #EFEFEF",
-                                },
-
-                  "focused":    {
-                                  "borderBottom":                 "2px solid",
-                                },
                 },
 };
 
