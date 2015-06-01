@@ -217,11 +217,11 @@ var Input = React.createClass(
                                       // Must wrap these tests in a `try` because the browser will throw if it
                                       // doesn't recognize a selector
                                       try {
-                                        autofilled = Boolean(node.parentNode.querySelector(":autofill"));
+                                        autofilled = node.matches(":autofill");
 
                                       } catch (error) {                                      
                                         try {
-                                          autofilled = Boolean(node.parentNode.querySelector(":-webkit-autofill"));
+                                          autofilled = node.matches(":-webkit-autofill");
                                           
                                         } catch (error) {}
                                       }  
