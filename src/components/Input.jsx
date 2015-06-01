@@ -47,6 +47,12 @@ var Input = React.createClass(
     "componentDidMount":          function () {
                                     // Detect autofill
                                     this.updateStateFromDOM();
+
+                                    // try again shortly in case the autofill didn't happen right away
+                                    setTimeout(
+                                      this.updateStateFromDOM,
+                                      400
+                                    );
                                   },
 
     "componentWillReceiveProps":  function (nextProps) {
@@ -191,29 +197,50 @@ var Input = React.createClass(
                                   },
                                   
     "updateStateFromDOM":         function () {
-                                    var value = this.refs.input.getDOMNode().value;
+                                    var node = this.refs.input && this.refs.input.getDOMNode();
+
+                                    if (!node)
+                                      return;
+                                    
+                                    var value = node.value;
+
+                                    if (!value) {
+                                      // For security reasons, we can't get an autofilled value from Chrome; 
+                                      // however, we can check the `:-webkit-autofill` selector and infer
+                                      // `active` accordingly.
+                                      //
+                                      // Firefox will let you read an autofilled value, so we don't need to sweat 
+                                      // `:-moz-autofill`.
+
+                                      var autofilled = false;
+
+                                      // Must wrap these tests in a `try` because the browser will throw if it
+                                      // doesn't recognize a selector
+                                      try {
+                                        autofilled = Boolean(node.parentNode.querySelector(":autofill"));
+
+                                      } catch (error) {                                      
+                                        try {
+                                          autofilled = Boolean(node.parentNode.querySelector(":-webkit-autofill"));
+                                          
+                                        } catch (error) {}
+                                      }  
+                                    }
 
                                     this.setState(
                                       {
                                         "value":    value,
-                                      }
-                                    );
-
-                                    this.updateActiveState();
-                                  },
-                                  
-    "updateActiveState":          function () {
-                                    var value = this.state.value;
-
-                                    this.setState(
-                                      {
-                                        "active":   this.state.focused || Boolean(value && value.trim())
+                                        "active":   this.state.focused || autofilled || Boolean(value && value.trim())
                                       }
                                     );
                                   },
   }
 );
 
+// We should probably be smarter about TRANSITION_DURATION, only using it when 
+// transitioning between active and !active.  The current implementation
+// transitions color on focus, even if the input is already active.  This makes
+// the UI feel slow.
 Input.TRANSITION_DURATION = ".5s";
 Input.PADDING             = 8;
 
