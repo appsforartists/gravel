@@ -10,10 +10,10 @@
   "peerDependencies": {
     "ambidex": "~0.2.0-beta3",
     "funx": "~0.0.0",
-    "react": "0.12",
+    "react": "0.13",
     "immutable": "3",
-    "react-tap-event-plugin": "~0.1.3",
-    "react-router": "0.11"
+    "react-tap-event-plugin": "~0.1.6",
+    "react-router": "0.13"
   },
   "repository": {
     "type": "git",
