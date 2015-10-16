@@ -1,6 +1,6 @@
 var Ambidex     = require("ambidex");
 var Gravel      = require("gravel");
-var React       = require("react/addons");
+var React       = require("react");
 var autoprefixStyleProp = require("autoprefix-style-prop");
 
 var Layer     = require("./Layer");
@@ -14,11 +14,12 @@ var {
 var Dialog = React.createClass(
   {
     "mixins":                     [
-                                    Ambidex.mixins.Nuclear,
                                     Ambidex.mixins.Title,
                                   ],
 
-    "sectionTitle":               "Add",
+    "getSectionTitle":            function () {
+                                    return this.props.title;
+                                  },
 
     "propTypes":                  {
                                     "title":              React.PropTypes.string.isRequired,

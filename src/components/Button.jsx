@@ -1,4 +1,4 @@
-var React       = require("react/addons");
+var React       = require("react");
 
 var Layer       = require("./Layer");
 var ButtonText  = require("./texts/ButtonText");

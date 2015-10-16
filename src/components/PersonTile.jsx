@@ -1,4 +1,5 @@
-var React       = require("react/addons");
+var React           = require("react");
+var PureRenderMixin = require("react-pure-render/mixin");
 
 var autoprefixStyleProp = require("autoprefix-style-prop");
 
@@ -25,7 +26,7 @@ var backgroundColors = [
 var PersonTile = React.createClass(
   {
     "mixins":                     [
-                                    React.addons.PureRenderMixin
+                                    PureRenderMixin
                                   ],
 
     "propTypes":                  {

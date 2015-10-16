@@ -1,5 +1,6 @@
-var React       = require("react/addons");
-var ReactRouter = require("react-router");
+var React           = require("react");
+var ReactRouter     = require("react-router");
+var PureRenderMixin = require("react-pure-render/mixin");
 
 var Link            = ReactRouter.Link;
 
@@ -17,7 +18,6 @@ var Shingle = React.createClass(
                                     "label":                  React.PropTypes.string.isRequired,
                                     
                                     "linkTo":                 React.PropTypes.string,
-                                    "linkParams":             React.PropTypes.object,
                                     "style":                  React.PropTypes.object,
                                     "depth":                  React.PropTypes.number,
                                     "collapsed":              React.PropTypes.bool,
@@ -32,7 +32,7 @@ var Shingle = React.createClass(
                                   },
 
     "mixins":                     [
-                                    React.addons.PureRenderMixin
+                                    PureRenderMixin
                                   ],
 
     "render":                     function () {
@@ -80,7 +80,6 @@ var Shingle = React.createClass(
                                     if (this.props.linkTo) {
                                       label = <Link
                                                 to     = { this.props.linkTo }
-                                                params = { this.props.linkParams }
                                                 style  = { styles.link }
                                               >
                                                 { label }

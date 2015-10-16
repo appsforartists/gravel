@@ -1,4 +1,4 @@
-var React               = require("react/addons");
+var React               = require("react");
 var ImmutablePropTypes  = require("react-immutable-proptypes");
 
 var autoprefixStyleProp = require("autoprefix-style-prop");

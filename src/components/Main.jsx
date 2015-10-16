@@ -1,8 +1,4 @@
-var Ambidex     = require("ambidex");
-var React       = require("react/addons");
-var ReactRouter = require("react-router");
-
-var RouteHandler = ReactRouter.RouteHandler;
+var React = require("react");
 
 var AppBar = require("./AppBar");
 var Drawer = require("./Drawer");
@@ -39,14 +35,44 @@ var Main = React.createClass(
                                     }
                                   },
 
-    "mixins":                     [
-                                    Ambidex.mixinCreators.connectStoresToLocalState(
-                                      [
-                                        "leftDrawerIsOpen",
-                                        "rightDrawerIsOpen"
-                                      ]
-                                    ),
-                                  ],
+    "getInitialState":            function () {
+                                    return {
+                                      "leftDrawerIsOpen":       false,
+                                      "rightDrawerIsOpen":      false,
+                                    }
+                                  },
+
+    "showLeftDrawer":             function () {
+                                    this.setState(
+                                      {
+                                        "leftDrawerIsOpen":     true,
+                                      }
+                                    );
+                                  },
+
+    "hideLeftDrawer":             function () {
+                                    this.setState(
+                                      {
+                                        "leftDrawerIsOpen":     false,
+                                      }
+                                    );
+                                  },
+
+    "showRightDrawer":            function () {
+                                    this.setState(
+                                      {
+                                        "rightDrawerIsOpen":   true,
+                                      }
+                                    );
+                                  },
+
+    "hideRightDrawer":            function () {
+                                    this.setState(
+                                      {
+                                        "rightDrawerIsOpen":   false,
+                                      }
+                                    );
+                                  },
 
     "render":                     function () {
                                     // TODO: allow drawers to become sidebars on wide screens
@@ -54,7 +80,7 @@ var Main = React.createClass(
                                     return  <div style = { this.props.style }>
                                               <AppBar
                                                 shouldShowNavIcon   = { Boolean(this.props.leftSideBar) }
-                                                showNavAction       = { this.getFunxAction("showLeftDrawer") }
+                                                showNavAction       = { this.showLeftDrawer }
                                                 imagesURL           = { this.props.staticURL + "images/" }
                                                 actionButtons       = { this.props.appBarActionButtons }
                                                 logoSrc             = { this.props.logoSrc }
@@ -70,7 +96,7 @@ var Main = React.createClass(
                                                   ? <Drawer
                                                       side            = "left"
                                                       open            = { this.state.leftDrawerIsOpen }
-                                                      hideAction      = { this.getFunxAction("hideLeftDrawer") }
+                                                      hideAction      = { this.hideLeftDrawer }
                                                       content         = { this.props.leftSideBar }
                                                       backgroundColor = { this.props.leftSideBarBackgroundColor }
                                                     />
@@ -78,7 +104,7 @@ var Main = React.createClass(
                                               }
 
                                               <div style = { styles.content }>
-                                                <RouteHandler />
+                                                { this.props.children }
                                               </div>
 
                                               {
@@ -86,7 +112,7 @@ var Main = React.createClass(
                                                   ? <Drawer
                                                       side            = "right"
                                                       open            = { this.state.rightDrawerIsOpen }
-                                                      hideAction      = { this.getFunxAction("hideRightDrawer") }
+                                                      hideAction      = { this.hideRightDrawer }
                                                       content         = { this.props.rightSideBar }
                                                       backgroundColor = { this.props.rightSideBarBackgroundColor }
                                                     />
