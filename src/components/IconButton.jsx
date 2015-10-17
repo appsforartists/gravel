@@ -52,9 +52,15 @@ var IconButton = React.createClass(
                                       : "img";
                                     
                                     return  <LinkClass 
-                                              style = { styles.link }
-
                                               { ...this.props } 
+
+                                              style = { 
+                                                        {
+                                                          ...styles.link,
+                                                          ...this.props.style
+                                                        }
+                                                      }
+
                                               { ...linkAttributes }
                                             >
                                               <ImageClass 

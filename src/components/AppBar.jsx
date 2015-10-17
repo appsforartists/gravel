@@ -57,6 +57,7 @@ var AppBar = React.createClass(
                                                   ? <IconButton
                                                       src             = { this.props.imagesURL + "nav.svg" }
                                                       onTouchTap      = { event => this.props.showNavAction() }
+                                                      style           = { styles.navIcon }
                                                       makeSilhouette  = { true }
 
                                                       silhouetteColor = { this.props.foregroundColor }
@@ -120,6 +121,12 @@ var styles = {
 
                         "width":                        "100vw",
                         "height":                       AppBar.HEIGHT,
+                      }
+                    ),
+                                        
+  "navIcon":        autoprefixStyleProp(
+                      {
+                        "left":                         4,
                       }
                     ),
                                         
