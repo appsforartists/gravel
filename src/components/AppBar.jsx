@@ -8,11 +8,13 @@ var autoprefixStyleProp = require("autoprefix-style-prop");
 var Layer      = require("./Layer");
 var IconButton = require("./IconButton");
 var Silhouette = require("./Silhouette");
+var TitleText  = require("./texts/TitleText");
 
 var AppBar = React.createClass(
   {
     "propTypes":                  {
                                     "imagesURL":          React.PropTypes.string.isRequired,
+                                    "title":              React.PropTypes.string.isRequired,
                                     "logoSrc":            React.PropTypes.string.isRequired,
                                     "logoDestination":    React.PropTypes.string,
                                     "actionButtons":      React.PropTypes.element,
@@ -64,21 +66,36 @@ var AppBar = React.createClass(
                                                     : null
                                               }
 
-                                              <Link to = { this.props.logoDestination }>
-                                                <ImageClass 
-                                                  src   = { this.props.logoSrc } 
-                                                  color = { this.props.foregroundColor }
-                                                  style = { 
-                                                            {
-                                                              "marginLeft":                   this.props.shouldShowNavIcon || this.props.forceCenterLogo
-                                                                                                ? 0
-                                                                                                : IconButton.PADDING,
+                                              {
+                                                this.props.logoSrc
+                                                  ? <Link to = { this.props.logoDestination }>
+                                                      <ImageClass 
+                                                        alt   = { this.props.title } 
+                                                        src   = { this.props.logoSrc } 
+                                                        color = { this.props.foregroundColor }
+                                                        style = { 
+                                                                  {
+                                                                    "marginLeft":                   this.props.shouldShowNavIcon || this.props.forceCenterLogo
+                                                                                                      ? 0
+                                                                                                      : IconButton.PADDING,
 
-                                                              ...styles.logo 
-                                                            }
-                                                          }
-                                                />
-                                              </Link>
+                                                                    ...styles.logo 
+                                                                  }
+                                                                }
+                                                      />
+                                                    </Link>
+                                                  : <TitleText
+                                                      style = {
+                                                                {
+                                                                  "color": this.props.foregroundColor,
+
+                                                                  ...styles.title
+                                                                }
+                                                              }
+                                                    >
+                                                      { this.props.title }
+                                                    </TitleText>
+                                              }
 
                                               <div>
                                                 { this.props.actionButtons }
@@ -110,6 +127,13 @@ var styles = {
                       {
                         "maxHeight":                    IconButton.visibleSize,
                         "maxWidth":                     `calc(100vw - ${ 2 * (IconButton.TOTAL_SIZE + IconButton.PADDING) }px)`,
+                      }
+                    ),
+                                        
+  "title":          autoprefixStyleProp(
+                      {
+                        "flexGrow":                     1,
+                        "marginLeft":                   24, // Aligns title to 72px keyline, as per https://www.google.com/design/spec/layout/structure.html#structure-app-bar
                       }
                     ),
 };

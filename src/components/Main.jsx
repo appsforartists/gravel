@@ -9,6 +9,7 @@ var Main = React.createClass(
                                     "staticURL":                    React.PropTypes.string.isRequired,
                                     "logoSrc":                      React.PropTypes.string.isRequired,
                                     "logoDestination":              React.PropTypes.string,
+                                    "appBarTitle":                  React.PropTypes.string.isRequired,
                                     
                                     "makeLogoSilhouette":           React.PropTypes.bool,
                                     "leftSideBar":                  React.PropTypes.element,
@@ -83,6 +84,7 @@ var Main = React.createClass(
                                                 showNavAction       = { this.showLeftDrawer }
                                                 imagesURL           = { this.props.staticURL + "images/" }
                                                 actionButtons       = { this.props.appBarActionButtons }
+                                                title               = { this.props.appBarTitle }
                                                 logoSrc             = { this.props.logoSrc }
                                                 logoDestination     = { this.props.logoDestination }
                                                 forceCenterLogo     = { this.props.appBarForceCenterLogo }
