@@ -1,3 +1,16 @@
+v0.0.4 - Sun, 25 Oct 2015 23:37:01 GMT
+--------------------------------------
+
+- [9a9e85d](../../commit/9a9e85d) [added] Snackbar
+- [bfe4c6c](../../commit/bfe4c6c) [removed] remnants of Funx
+- [13a048b](../../commit/13a048b) [fixed] lineHeight
+- [3ab88ec](../../commit/3ab88ec) [removed] default margin below AppBar in Main
+- [f1635a4](../../commit/f1635a4) [changed] AppBar logo to be optional
+- [e0d118f](../../commit/e0d118f) [fixed] nav icon alignment
+- [46bd94c](../../commit/46bd94c) [added] AppBar.@title
+- [337c6cf](../../commit/337c6cf) [changed] to React v0.14 and ReactRouter v1
+
+
 v0.0.3 - Wed, 03 Jun 2015 18:51:21 GMT
 --------------------------------------
 

@@ -1,6 +1,6 @@
 {
   "name": "gravel",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "An unfinished React implementation of Material Design.",
   "main": "src/index.js",
   "dependencies": {
