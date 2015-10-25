@@ -9,6 +9,7 @@ var Body1Text = createText(
                       "fontWeight":                   400,
                       "opacity":                      .87,
                       "lineSpacing":                  20,
+                      "lineHeight":                   "20px",
                     },
 
     "truncate":     false

@@ -1,6 +1,9 @@
 var createText = require("./_createText");
 var packageGlobals = require("gravel");
 
+var paddingX = 12;
+var paddingY = 14;
+
 var ButtonText = createText(
   {
     "displayName":  "ButtonText",
@@ -14,10 +17,11 @@ var ButtonText = createText(
                       "display":                      "inline-block",
                       "minHeight":                    packageGlobals.TOUCH_TARGET_MINIMUM_SIZE,
 
-                      "paddingLeft":                  12,
-                      "paddingRight":                 12,
-                      "paddingTop":                   14,
-                      "paddingBottom":                14,
+                      "lineHeight":                   (packageGlobals.TOUCH_TARGET_MINIMUM_SIZE - 2 * paddingY) + "px",
+                      "paddingLeft":                  paddingX,
+                      "paddingRight":                 paddingX,
+                      "paddingTop":                   paddingY,
+                      "paddingBottom":                paddingY,
 
                       "cursor":                       "pointer",
                     },
