@@ -12,6 +12,7 @@
     "react": "0.14",
     "immutable": "3",
     "react-immutable-proptypes": "1.2.3",
+    "react-motion": "0.3.1",
     "react-pure-render": "1.0.2",
     "react-router": "1.0.0-rc3",
     "react-tap-event-plugin": "0.2.1"

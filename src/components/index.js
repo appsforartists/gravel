@@ -19,5 +19,6 @@ module.exports = {
   "ScrollPane":           require("./ScrollPane"),
   "Shingle":              require("./Shingle"),
   "Silhouette":           require("./Silhouette"),
+  "Snackbar":             require("./Snackbar"),
   "View":                 require("./View"),
 };

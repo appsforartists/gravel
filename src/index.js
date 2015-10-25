@@ -8,5 +8,6 @@ module.exports = {
 
 module.exports["colors"]          = require("./colors");
 module.exports["components"]      = require("./components");
+module.exports["helpers"]         = require("./helpers");
 module.exports["styles"]          = require("./styles");
 
