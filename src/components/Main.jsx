@@ -6,8 +6,8 @@ var Drawer = require("./Drawer");
 var Main = React.createClass(
   {
     "propTypes":                  {
-                                    "staticURL":                    React.PropTypes.string.isRequired,
-                                    "logoSrc":                      React.PropTypes.string.isRequired,
+                                    "staticURL":                    React.PropTypes.string,
+                                    "logoSrc":                      React.PropTypes.string,
                                     "logoDestination":              React.PropTypes.string,
                                     "appBarTitle":                  React.PropTypes.string.isRequired,
                                     

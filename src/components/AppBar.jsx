@@ -13,9 +13,9 @@ var TitleText  = require("./texts/TitleText");
 var AppBar = React.createClass(
   {
     "propTypes":                  {
-                                    "imagesURL":          React.PropTypes.string.isRequired,
+                                    "imagesURL":          React.PropTypes.string,
                                     "title":              React.PropTypes.string.isRequired,
-                                    "logoSrc":            React.PropTypes.string.isRequired,
+                                    "logoSrc":            React.PropTypes.string,
                                     "logoDestination":    React.PropTypes.string,
                                     "actionButtons":      React.PropTypes.element,
                                     "shouldShowNavIcon":  React.PropTypes.bool,
