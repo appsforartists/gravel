@@ -127,7 +127,7 @@ var Main = React.createClass(
 
 var styles = {
   "content":  {
-                "marginTop":  AppBar.HEIGHT + 4,
+                "marginTop":  AppBar.HEIGHT,
                 "zIndex":     0,
               }
 };
