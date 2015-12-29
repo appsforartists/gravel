@@ -40,7 +40,9 @@ var createText = function (
                                                 
                                                 style = {
                                                           Object.assign(
-                                                            {},
+                                                            {
+                                                              "display":  "block",
+                                                            },
 
                                                             useTruncatedStyles
                                                               ? truncatedStyles
