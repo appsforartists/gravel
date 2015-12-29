@@ -21,13 +21,15 @@ var createText = function (
     }
   );
 
+  var truncateArg = truncate;
+
   return React.createClass(
     {
       "displayName":                displayName,
 
       "render":                     function () {
                                       var useTruncatedStyles = this.props.truncate === undefined
-                                        ? truncate
+                                        ? truncateArg
                                         : this.props.truncate;
 
                                       var {
