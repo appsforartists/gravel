@@ -14,6 +14,7 @@ var Button = React.createClass(
                                     "foregroundColor":    React.PropTypes.string,
                                     "backgroundColor":    React.PropTypes.string,
                                     "elevation":          React.PropTypes.number,
+                                    "enabled":            React.PropTypes.bool,
                                   },
 
     "getDefaultProps":            function () {
@@ -23,6 +24,7 @@ var Button = React.createClass(
                                       "elevation":        1,
                                       "tabIndex":         0,
                                       "isSubmit":         false,
+                                      "enabled":          true,
                                     }
                                   },
 
@@ -35,11 +37,15 @@ var Button = React.createClass(
     "render":                     function () {
                                     var elevation = this.props.elevation;
 
-                                    if (this.state.focused)
+                                    if (this.state.focused && this.props.enabled)
                                       elevation++;
 
                                     return  <Layer 
-                                              elevation = { elevation } 
+                                              elevation = { 
+                                                            this.props.enabled
+                                                              ? elevation
+                                                              : 0 
+                                                          } 
                                             >
                                               <ButtonText
                                                 tagName     = "input"
@@ -50,15 +56,25 @@ var Button = React.createClass(
                                                               }
                                                 style       = {
                                                                 {
-                                                                  "color":            this.props.foregroundColor,
-                                                                  "backgroundColor":  this.props.backgroundColor,
+                                                                  "color":            this.props.enabled
+                                                                                        ? this.props.foregroundColor
+                                                                                        : "rgba(0, 0, 0, .26)",
+
+                                                                  "backgroundColor":  this.props.enabled
+                                                                                        ? this.props.backgroundColor
+                                                                                        : "rgba(0, 0, 0, .12)",
 
                                                                                       // don't draw the browser's blue focus box, because Layer gives us shadows for free
                                                                   "outline":          "none",
                                                                 }
                                                               }
                                                 value       = { this.props.label }
-                                                onTouchTap  = { this.props.onTouchTap }
+                                                onTouchTap  = { 
+                                                                () => {
+                                                                  if (this.props.enabled)
+                                                                    this.props.onTouchTap();
+                                                                }
+                                                              }
                                                 onFocus     = { this.onFocus }
                                                 onBlur      = { this.onBlur }
                                                 tabIndex    = { this.props.tabIndex }                                                          
