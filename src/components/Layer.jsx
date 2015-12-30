@@ -35,6 +35,7 @@ var Layer = React.createClass(
                                                             ...style,
                                                           }
                                                         }
+                                              { ...propsPassthrough }
                                             >                                    
                                               { children }
                                             </View>;
