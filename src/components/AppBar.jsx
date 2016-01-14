@@ -47,8 +47,8 @@ var AppBar = React.createClass(
                                                             {
                                                               "backgroundColor":  this.props.backgroundColor || this.props.style.backgroundColor || "white",
                                                               
-                                                              ...this.props.style,
                                                               ...styles.container,
+                                                              ...this.props.style,
                                                             }
                                                           }
                                             >
